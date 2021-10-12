@@ -24,8 +24,7 @@ pprint(get_data('recipes.txt'))
 
 def get_shop_list_by_dishes(dishes, person_count):
     cookbook = get_data('recipes.txt')
-    dishes, person_count = input()
-        for dish in cookbook:
-            if dish[] == dishes:
-                new_quantity = person_count * cookbook[dishes['quantity']]
+    for dish in cookbook:
+        if dish == dishes:
+            new_quantity = person_count * cookbook[dishes['quantity']]
         ...
