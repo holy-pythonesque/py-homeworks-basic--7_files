@@ -12,19 +12,26 @@ def get_data(file_name):
                 ingredient, quantity, measure = file.readline().split(' | ')
                 temp_list.append(
                     {
-                     'ingredient_name': ingredient,
-                     'quantity': quantity,
-                     'measure': measure
-                     }
+                    'ingredient_name': ingredient,
+                    'measure': measure,
+                    'quantity': quantity
+                    }
                 )
             data[cookbook] = temp_list
             file.readline()
     return data
-pprint(get_data('recipes.txt'))
+# pprint(get_data('recipes.txt'))
 
 def get_shop_list_by_dishes(dishes, person_count):
-    cookbook = get_data('recipes.txt')
-    for dish in cookbook:
-        if dish == dishes:
-            new_quantity = person_count * cookbook[dishes['quantity']]
-        ...
+    cooking_today = []
+    cooking_today = get_data('recipes.txt')[dishes]
+
+    for ingredients in cooking_today:
+
+        print(f'{dishes}:')
+        for product, measure, quantity in ingredients:
+            quantity = int(quantity) * person_count
+            print(f'{product} {quantity} {measure}')
+
+
+get_shop_list_by_dishes('Запеченный картофель', 7)
