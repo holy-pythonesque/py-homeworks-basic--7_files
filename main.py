@@ -10,12 +10,12 @@ def get_data(file_name):
 
             temp_list = []
             for item in range(counter):
-                ingredient, quantity, measure = file.readline().split(' | ')
+                ingredient, quantity, measure = file.readline().strip().split(' | ')
                 temp_list.append(
                     {
                         'ingredient_name': ingredient,
                         'measure': measure,
-                        'quantity': quantity
+                        'quantity': int(quantity)
                     }
                 )
             data[cookbook] = temp_list
@@ -27,14 +27,27 @@ def get_data(file_name):
 
 def get_shop_list_by_dishes(dishes, person_count):
     cookbook = get_data('recipes.txt')
-    # cooking_today = []
-    for dish in dishes:
-        print(f'{dish}:')
-        for ingredients in cookbook[dish]:
-            for items in ingredients:
-                product, measure, quantity = ingredients.values()
-            print(f'{product} {int(quantity)*person_count} {measure}')
+    shop_list = dict()
 
+    # for dish in dishes:
+    #     print(f'{dish}:')
+    #     for ingredients in cookbook[dish]:
+    #         for items in ingredients:
+    #             product, measure, quantity = ingredients.values()
+    #         print(f'{product} {int(quantity)*person_count} {measure}')
+
+    for dish in dishes:
+        for ingredient in cookbook[dish]:
+            ingredient_name = ingredient['ingredient_name']
+            if ingredient_name not in shop_list:
+                shop_list[ingredient_name] = {
+                    'measure': ingredient['measure'],
+                    'quantity': 0
+                }
+                shop_list[ingredient_name]['quantity'] += ingredient['quantity'] * person_count
+        pprint(shop_list)
+
+    print('----------------')
 
 get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 7)
 
